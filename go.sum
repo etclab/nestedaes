@@ -1,0 +1,6 @@
+github.com/etclab/aes256 v0.0.0-20240611130819-4fadcbc9b68b h1:Gzs0VhfiLzb1xVFZSBb7CkXE2wooNKM2WUm+TO4oRUw=
+github.com/etclab/aes256 v0.0.0-20240611130819-4fadcbc9b68b/go.mod h1:/ZpruxjgRpfbgSJmKYazZnuBwA8EG7h80VCOkyXFqRo=
+github.com/etclab/aes256 v0.1.0 h1:PyZOoc76mU2w3TTjgeYv3HVL6LFeu3o1MHQwUKEQhCE=
+github.com/etclab/aes256 v0.1.0/go.mod h1:/ZpruxjgRpfbgSJmKYazZnuBwA8EG7h80VCOkyXFqRo=
+github.com/etclab/mu v0.1.0 h1:E2P6a0KOAnqv1f2dL6IQ1ibhax558T8nvWh76q3SV/8=
+github.com/etclab/mu v0.1.0/go.mod h1:Q1g67Uyx3LUHW0YioY/ipPfKTQe/8NjYlpevy4zgGyk=
