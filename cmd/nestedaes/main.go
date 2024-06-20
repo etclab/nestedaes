@@ -47,9 +47,9 @@ options:
     Display this usage statement and exit.
 
 examples:
-  $ nestedaes -encrypt -outkek kek.key foo.txt
-  $ nestedaes -reencrypt -inkek kek.key -outkek key.key foo.txt
-  $ nestedaes -decrypt -inkek kek.key foo.txt
+  $ nestedaes -op encrypt -outkek kek.key -out foo.enc foo.txt
+  $ nestedaes -op reencrypt -inkek kek.key -outkek kek2.key -out foo.renc foo.enc
+  $ nestedaes -op decrypt -inkek kek2.key -out foo.txt foo.renc
 `
 
 func printUsage() {
