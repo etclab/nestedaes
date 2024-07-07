@@ -159,6 +159,9 @@ func UnmarshalHeader(kek, data []byte) (*Header, error) {
 	iv := aes256.CopyIV(h.BaseIV)
 	aes256.AddIV(iv, numDEKs-1)
 	dec, err := aes256.DecryptGCM(kek, aes256.IVToNonce(iv), enc, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decrypt encrypted header segment: %w", err)
+	}
 	h.DEKs = make([][]byte, numDEKs)
 
 	for i := 0; i < numDEKs; i++ {
