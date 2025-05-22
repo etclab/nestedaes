@@ -163,19 +163,18 @@ func BenchmarkDecrypt(b *testing.B) {
 			b.Run(fmt.Sprintf("Decrypt/size:%d/layers:%d", fileSize, layers), func(b *testing.B) {
 				path := filepath.Join(tempDir, fmt.Sprintf("testfile-%d-%d.dat", fileSize, layers))
 				createFileOfSizeB(b, path, fileSize)
-
-				info, err := os.Stat(path)
-				if err != nil {
-					b.Fatalf("os.Stat(%q) failed: %v", path, err)
-				}
-				fmt.Printf("file %s has size %d\n", path, info.Size())
-
 				kek := encryptFile(b, path, layers)
 				for b.Loop() {
+					// The Decrypt function modifies the blob (it's an inout
+					// parameter: on input it has the ciphertext; on output the
+					// plaintext.  Tjhus, we need to read the ciphertext file
+					// anew on each iteration, but not time the file I/O.
+					b.StopTimer()
 					blob, err := os.ReadFile(path)
 					if err != nil {
 						b.Fatalf("can't read input file: %v", err)
 					}
+					b.StartTimer()
 					_, err = Decrypt(blob, kek, nil)
 					if err != nil {
 						b.Fatalf("nestedaes.Decrypt failed: %v", err)
