@@ -24,7 +24,7 @@ make test
 To run all benchmarks, enter:
 
 ```
-make benchmarking
+make benchmark
 ```
 
 Currently, there is only one benchmark, which reports the time to
