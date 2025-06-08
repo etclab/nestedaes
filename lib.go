@@ -102,7 +102,7 @@ func Reencrypt(blob, kek []byte) ([]byte, []byte, error) {
 
 // ReencryptWithKeys is the same as [Rencrypt], but it allows the caller to
 // specify the new KEK and DEK, rather than having them be randomly generated.
-func ReencryptWithKeys(blob, kek, newKEK, newDEK  []byte) ([]byte, []byte, error) {
+func ReencryptWithKeys(blob, kek, newKEK, newDEK []byte) ([]byte, error) {
 	hData, payload, err := SplitHeaderPayload(blob)
 	if err != nil {
 		return nil, err

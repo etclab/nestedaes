@@ -23,5 +23,6 @@
 // Where DATATAG is the GCM tag for the first layer of encryption, and DEKS...
 // is the list of DEKS (one DEK per layer of encryption).
 
+//
 // [paper]: https://eprint.iacr.org/2020/222.pdf
 package nestedaes
