@@ -6,7 +6,7 @@ Schemes"](https://eprint.iacr.org/2020/222.pdf) by Boneh et al.  This module
 specifically implements the scheme from section 4.1 of that ("A Simple Nested
 Construction"), which requires only a nested application of a
 symmetric, authenticated encryption cipher.  This module uses AES-GCM for its
-implementaion.
+implementation.
 
 
 # Building
