@@ -21,4 +21,4 @@ benchmark: fmt
 clean:
 	rm -f $(progs)
 
-.PHONY: $(progs) all fmt vet test clean
+.PHONY: $(progs) all fmt vet test benchmark clean
