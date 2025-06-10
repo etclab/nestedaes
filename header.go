@@ -11,16 +11,27 @@ import (
 	"github.com/etclab/mu"
 )
 
+// PlainHeader is the unencrypted part of the ciphertext header.
 type PlainHeader struct {
-	Size   uint32
-	BaseIV []byte // aes256.IVSize
+	// The size of the entire blob (including the header)
+	Size uint32
+	// The BaseIV (size is [aes256.IVSize])
+	BaseIV []byte
 }
 
+// EncryptedHeader is the encrypted portion of the header
 type EncryptedHeader struct {
-	DataTag []byte   // aes256.TagSize
-	DEKs    [][]byte //aes256.KeySize
+	// DataTag is the GCM TAG from AES-GCM encrypting the original plaintext.
+	// The size of the tag is [aes256.TagSize].
+	DataTag []byte
+	// DEKs is the list of DEKs for encrypting each layer.  The first DEK is
+	// is for the first layer of encryption.  The size of each DEK is
+	// [aes256.KeySize].
+	DEKs [][]byte
 }
 
+// Header is the ciphertext header.  When marshaled to disk, the header also includes an
+// AES GCM Header Tag for the [EncryptedHeader])
 type Header struct {
 	PlainHeader
 	EncryptedHeader
@@ -45,8 +56,8 @@ func (h *Header) String() string {
 	return b.String()
 }
 
-// New creates a new [Header] and initializes the BaseIV, DataTag, and first
-// DEK entry.
+// NewHeader creates a new [Header] and initializes the BaseIV, DataTag, and
+// first DEK entry.
 func NewHeader(iv, dataTag, dek []byte) (*Header, error) {
 	h := &Header{}
 	if len(iv) != aes256.IVSize {
@@ -68,7 +79,8 @@ func NewHeader(iv, dataTag, dek []byte) (*Header, error) {
 	h.DEKs[0] = make([]byte, aes256.KeySize)
 	copy(h.DEKs[0], dek)
 
-	h.Size = uint32(4 + len(h.BaseIV) + len(h.DataTag) + aes256.KeySize + aes256.TagSize) // 4 for the Size field, tagsize for header tag
+	// 4 for the Size field, tagsize for header tag
+	h.Size = uint32(4 + len(h.BaseIV) + len(h.DataTag) + aes256.KeySize + aes256.TagSize)
 	return h, nil
 }
 
