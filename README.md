@@ -36,7 +36,7 @@ make test
 To run the benchmarks, enter:
 
 ```
-make benchmarking
+make benchmark
 ```
 
 The benchmarks measure the time to nested-decrypt a file, varying the size of
